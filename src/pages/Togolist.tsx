@@ -7,7 +7,7 @@ import AddTogolist from '../components/AddTogolist'
 
 export default function Todolist() {
 
-    const arrayOfTogolist = [{subject: "Wake Up", description: "now!"}, {subject: "Hey dude!", description: "Yo!"}];
+    const arrayOfTogolist = [{subject: "Wake Up", description: "now!"}, {subject: "Hey dude!", description: "At its most basic, testing is an automated tool that finds errors in your development as early as possible. That way, you’re able to fix those issues before they make it into production. Tests also serve as a reminder that you may have forgotten to check your own work in a certain area, say accessibility. At its most basic, testing is an automated tool that finds errors in your development as early as possible. That way, you’re able to fix those issues before they make it into production. Tests also serve as a reminder that you may have forgotten to check your own work in a certain area, say accessibility. At its most basic, testing is an automated tool that finds errors in your development as early as possible. That way, you’re able to fix those issues before they make it into production. Tests also serve as a reminder that you may have forgotten to check your own work in a certain area, say accessibility."}];
 
     const [allTogolist, setAllTogolist] = useState<any>(arrayOfTogolist)
 
@@ -29,7 +29,9 @@ export default function Todolist() {
                             </div>
                         </div>
                     </div>
-                    <div className="container-sm d-flex flex-column align-items-start bg-light border rounded-2" style={{ height: "100%" }}>
+                    <div className="container-sm d-flex flex-column align-items-start bg-light border rounded-2" style={{ height: "100%", overflowY: "scroll", scrollBehavior: "smooth" }}>
+                        {resTogolist}
+                        {resTogolist}
                         {resTogolist}
                         <AddTogolist />
                     </div>

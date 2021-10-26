@@ -42,7 +42,7 @@ export default function AddTogolist() {
     
     return add === false ? (
         <>
-            <div className="mt-2 ms-3 d-flex align-items-center text-info" onClick={() => {setAdd(true);}} style={{cursor: "pointer"}}>
+            <div className="my-2 ms-3 d-flex align-items-center text-info" onClick={() => {setAdd(true);}} style={{cursor: "pointer"}}>
                 <AddCircleOutlineIcon />Add New
             </div>  
         </>
