@@ -13,7 +13,8 @@ import { Cancel } from '@mui/icons-material';
 
 export default function TogolistBox(props: any) {
 
-    const [show, setShow] = useState<number>(0)
+    const [state, setState] = useState('basic')
+    const [show, setShow] = useState(false)
     console.log(show)
 
     const [subject, setSubject] = useState(props.subj)
@@ -25,7 +26,7 @@ export default function TogolistBox(props: any) {
 
     const SaveSubmut = () => {
         if (subject !== "") {
-            setShow(1);
+            setState('detail');
             setShowError(false);
         }
         else {
@@ -35,7 +36,7 @@ export default function TogolistBox(props: any) {
     }
 
     function Cancel() {
-        setShow(1);
+        setState('detail');
         setSubject(sub);
         setDescription(des);
     }
@@ -45,21 +46,25 @@ export default function TogolistBox(props: any) {
         setShowError(false);
     }
 
-    return show === 0 ? (
+    return state === 'basic' ? (
         <>
-            <div className="container-fluid my-1 border border-2 rounded-pill border-info d-flex align-items-center bg-white overflow-hidden" style={{minHeight: "60px", display: "block"}}>
+            <div className="container-fluid my-1 border border-2 rounded-pill border-info d-flex align-items-center bg-white overflow-hidden" style={{minHeight: "60px", display: "block"}} onMouseEnter={() => setShow(true)} onMouseLeave={() => setShow(false)}>
                 <div className="d-flex flex-row align-items-center overflow-hidden" style={{width: "95%"}}>
                     <Checkbox color="info" onChange={() => {Delete();}} />
                     <h5 className="pt-1">{subject}</h5>
                 </div>
                 <div className="d-flex justify-content-end align-items-center">
-                    <DeleteIcon className="me-3" color="info" onClick={() => {Delete();}} style={{cursor: "pointer"}}/>
-                    <EditIcon className="me-2" color="info" onClick={() => {setShow(2);}} style={{cursor: "pointer"}}/>
-                    <ExpandMoreIcon fontSize="large" color="info" onClick={() => {setShow(1);}} style={{cursor: "pointer"}}/>
+                    {show && (
+                        <div className="d-flex flex-row align-items-center">
+                            <DeleteIcon className="me-3" color="info" onClick={() => {Delete();}} style={{cursor: "pointer"}}/>
+                            <EditIcon className="me-2" color="info" onClick={() => {setState('edit');}} style={{cursor: "pointer"}}/>
+                            <ExpandMoreIcon fontSize="large" color="info" onClick={() => {setState('detail');}} style={{cursor: "pointer"}}/>
+                        </div>
+                    )}
                 </div>
             </div>
         </>
-    ) : show === 1 ? (
+    ) : state === 'detail' ? (
         <>
             <div className="container-fluid my-1 border border-2 rounded-1 border-info align-items-center bg-white overflow-hidden" style={{height: "auto", display: "table" }}>
                 <div className="d-flex flex-column align-items-start overflow-hidden display-linebreak mt-1" style={{width: "100%", height: "100%"}}>
@@ -69,8 +74,8 @@ export default function TogolistBox(props: any) {
                         <div className="d-flex justify-content-end ">
                             <div className="d-flex align-items-center">
                                 <DeleteIcon className="me-3" color="info" onClick={() => {Delete();}} style={{cursor: "pointer"}}/>
-                                <EditIcon className="me-2" color="info" onClick={() => {setShow(2);}} style={{cursor: "pointer"}}/>
-                                <ExpandLessIcon fontSize="large" color="info" onClick={() => {setShow(0);}} style={{cursor: "pointer"}}/>
+                                <EditIcon className="me-2" color="info" onClick={() => {setState('edit');}} style={{cursor: "pointer"}}/>
+                                <ExpandLessIcon fontSize="large" color="info" onClick={() => {setState('basic');}} style={{cursor: "pointer"}}/>
                             </div>
                         </div>
                     </div> 
