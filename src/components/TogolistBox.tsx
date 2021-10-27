@@ -39,6 +39,7 @@ export default function TogolistBox(props: any) {
         setState('detail');
         setSubject(sub);
         setDescription(des);
+        setShowError(false);
     }
 
     function Delete() {
