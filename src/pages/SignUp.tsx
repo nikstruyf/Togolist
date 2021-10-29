@@ -10,6 +10,7 @@ import { useForm } from 'react-hook-form';
 import { useState , useContext , useEffect } from "react"
 import { API } from '../app.setting.json';
 import axios from 'axios';
+import ReactLoading from 'react-loading';
 
 export default function SignUp() {
     const history = useHistory();
@@ -20,9 +21,11 @@ export default function SignUp() {
 
     const [showError, setShowError] = useState(false)
     const [showAlready, setShowAlready] = useState(false)
+    const [load, setLoad] = useState(false)
 
     const SignupSubmit = async () => {
         if (name !== "" && username !== "" && password !== "") {
+            setLoad(true)
             setShowError(false);
             await axios.post(`${API}/auth/signup`, {
                 name: name,
@@ -33,6 +36,7 @@ export default function SignUp() {
                  console.log(showAlready);
                 if (res.data.success === true) {
                     setShowAlready(false);
+                    setLoad(false);
                     history.push(`/login`);
                 }
                 else {
@@ -50,7 +54,7 @@ export default function SignUp() {
         }
     }
 
-    return(
+    return load === false ? (
         <>
             <div className="container-fluid d-flex justify-content-center bg-light" style={{height: "100vh"}}>
                 <div className="container-sm d-flex flex-column justify-content-center align-items-center">
@@ -73,6 +77,12 @@ export default function SignUp() {
                     </div>
                     
                 </div>
+            </div>
+        </>
+    ) : (
+        <>
+            <div className="container-fluid d-flex justify-content-center align-items-center bg-light" style={{height: "100vh"}}>
+                <ReactLoading type="cylon" color="#00bcf5" height={'10%'} width={'10%'}/>
             </div>
         </>
     )
